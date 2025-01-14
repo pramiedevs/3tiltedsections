@@ -20,11 +20,44 @@
         }
 
         main {
-            height:70dvh;
+            height:75dvh;
             width: 105%;
             display: flex;
             position: relative;
         }
+
+
+.hidden {
+    display: none;
+}
+
+#active-container {
+    display: none; /* Ensure the active container is hidden by default */
+    height: 75dvh;
+    background: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#close-button {
+    display: none; /* Hide the close button initially */
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+}
+
+#active-container.visible #close-button {
+    display: block; /* Show close button when active section is visible */
+}
+
 
         .section {
             flex: 1;
@@ -32,11 +65,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 5px;
+            cursor: pointer;
 
+        }
+        .section:hover{
+            transform: scale(1.02);
+            animation: ease-in-out 5s infinite;
         }
 
         .section img{
             width:50%;
+                        border: solid white 2px;
+
         }
         .section:before {
             content: '';
@@ -48,46 +89,94 @@
             transform: skewX(-15deg);
             transform-origin: top left;
             z-index: -1;
+            border: solid white 2px;
         }
 
-        .yellow:before {
-            background-color: #f3d13f;
-            background-image: url("/a493ee0e-84e1-4ccf-89a0-50e0cdf27b87.jpg");
-        }
-
-        .orange:before {
-            background-color: #f08c3f;
-            background-image: url("/c55317a4-90ab-4e51-9264-59762864aac3.jpg");
-        }
-
-        .red:before {
-            background-color: #d9534f;
-            background-image: url("/Celeste Foto Agua Fiesta en la Pileta Póster.png");
-            z-index: 0;
-        }
         
-        .blue:before {
-    background-color: #337ab7; /* Background color */
-    width: 130%;
-    z-index: -2;
-}
-
-.blue:after {
+        .yellow:after {
     content: '';
     position: absolute;
     top: 0;
     left: -10;
     width: 180%;
     height: 100%;
-    background-image: url('/a493ee0e-84e1-4ccf-89a0-50e0cdf27b87.jpg');
+    opacity: 0.5; /* Adjust the transparency of the image */
+    z-index: 2; /* Ensure it's behind the text and overlay */
+    transform: skewX(0deg);
+    transform-origin: top left;
+}
+
+        .yellow:before {
+            z-index: -1;            
+    background-image: url('/StockCake-Neon\ Music\ Dreams_1736881931.jpg');
     background-size: cover;
     background-position: center;
+        }
+
+        .orange:before {
+            z-index: -1;
+            
+    background-image: url('/StockCake-Holding\ Yellow\ Megaphone_1736881895.jpg');
+    background-size: cover;
+    background-position: center;
+        }
+        .orange:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -10;
+    width: 180%;
+    height: 100%;
+    opacity: 0.5; /* Adjust the transparency of the image */
+    z-index: 1; /* Ensure it's behind the text and overlay */
+    transform: skewX(0deg);
+    transform-origin: top left;
+    overflow: hidden;
+}
+
+        .red:before {
+            background-image: url('/StockCake-Flame\ Dancer\ Rising_1736881908.jpg');
+    background-size: cover;
+    background-position: center;            z-index: -2;
+        }
+        .red:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -10;
+    width: 180%;
+    height: 100%;
+    
     opacity: 0.5; /* Adjust the transparency of the image */
     z-index: -1; /* Ensure it's behind the text and overlay */
     transform: skewX(0deg);
     transform-origin: top left;
 }
 
+        .blue:before {
+    width: 130%;
+    z-index: -4;
+}
+.blue:hover{
+
+    scale: 1.02;
+    transform: translateX(-100px)!important;
+}
+
+.blue:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -1;
+    width: 180%;
+    height: 103%;
+    z-index: -4; /* Ensure it's behind the text and overlay */
+    transform: skewX(0deg);
+    background-image: url('/BANNERPRINCIPAL_1_mob.webp');
+    background-size: cover;
+    background-position: center;
+    transform-origin: top left;
+}
 
         .content {
             text-align: center;
@@ -102,41 +191,48 @@
         .content p {
             margin: 0.5rem 0 0;
         }
+        .video-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
+}
+
     </style>
 </head>
 <body>
     <header>
         <h1>Slanted Sections Layout</h1>
     </header>
-
-    <main>
-        <div class="section yellow">
+    <main id="main-sections">
+        <div class="section yellow" data-active-section="music">
             <div class="content">
-                <h2>Distribuzione di potenza</h2>
-                <p>Scopri di più</p>
+                <h2>Música</h2>
             </div>
         </div>
-        <div class="section orange">
+        <div class="section orange" data-active-section="culture">
             <div class="content">
-                <h2>Sistemi d'Automazione Industriale</h2>
-                <p>Scopri di più</p>
-
+                <h2>Cultura</h2>
             </div>
         </div>
-        <div class="section red">
+        <div class="section red" data-active-section="dance">
             <div class="content">
-                <h2>ATEX Zone</h2>
-                <p>Scopri di più</p>
+                <h2>Danza</h2>
             </div>
         </div>
-        <div class="section blue">
-            <div class="content">
-                <h2>Servizi Integrati</h2>
-                <p>Scopri di più</p>
-                <img src="" alt="">
-            </div>
+        <div class="section blue" data-url="https://example.com">
+            <div class="content"></div>
         </div>
     </main>
+    
+    <div id="active-container" class="hidden">
+        <section id="active-section" class="active-content">
+            <button id="close-button">Close</button>
+            <div id="active-content"></div>
+        </section>
+    </div>
+    
+    <script src="/sections.js"></script>
 
     <footer>
         <p>Footer Content</p>
